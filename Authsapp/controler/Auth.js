@@ -2,18 +2,16 @@ const bcrypt = require('bcrypt');
 const User = require("../Model/User");
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
-
 exports.signup = async (req, res) => {
     console.log("After Auth")
     
     try {
-        console.log(req.body);
+      
         // get data
         const { name, email, password, role } = req.body;
         // check if user already exist 
         console.log("befor email");
         const existingUser = await User.findOne({ email });
-        console.log(email);
         if (existingUser) {
             return res.status(400).json({
                 success: false,
@@ -81,7 +79,7 @@ exports.login = async (req,res) => {
         const payload = {
             email : user.email,
             id : user._id,
-            role : user.role,
+           
         };
 
 

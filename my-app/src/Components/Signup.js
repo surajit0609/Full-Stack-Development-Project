@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
-
+  const navigate=useNavigate();
     
   const [formData, setFormData] = useState({
     Name: "",
@@ -34,8 +35,8 @@ console.log(formData.Name);
             name: formData.Name,
             email: formData.email,
             password: formData.password,
-            role: "Student"
-         
+            role:"Student"
+            
         })
       });
    
@@ -59,6 +60,11 @@ console.log(formData.Name);
    
      else{
      res();
+     {
+      if (formData.Name && formData.email && formData.password && formData.confirmPassword) {
+         navigate('/home')
+      }
+     }
      }
   }
   return (

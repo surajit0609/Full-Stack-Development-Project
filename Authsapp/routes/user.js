@@ -1,12 +1,45 @@
-const express = require('express')
+// routes/tourRoutes.js
+const express = require('express');
 const router = express.Router();
-// const User = require("../Model/User");
 
-const {login,signup } = require("../controler/Auth");
-console.log("route before")
+const{signup,login}=require("../controler/Auth");
+
+
 router.post("/signup", signup);
 router.post("/login", login);
-console.log("route After")
 
+
+
+
+
+
+router.get('/collections', async (req, res) => {
+    try {
+       const myArray=  await require("../controler/getvalue").fetchTours();
+
+        
+           
+        
+        res.status(200).json({
+            message: 'Collections retrieved successfully',
+            toure:myArray,
+            // collections: collections.map(col => col.name)
+        });
+
+        // res.status(200).json(myArray);
+        // return myArray;
+        // return collections.map(col => col.name);
+    } catch (error) {
+        console.error('Error accessing collections:', error);
+        res.status(500).json({
+            message: 'An error occurred while accessing collections',
+            error: error.message
+        });
+    }
+});
+
+  
+
+// module.exports = router;
 
 module.exports = router;
